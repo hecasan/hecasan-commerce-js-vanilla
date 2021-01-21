@@ -21,7 +21,7 @@ const HomeScreen = {
           ${product.brand}
         </div>
         <div class="product-price">
-          $${product.price}
+          R$ ${product.price}
         </div>
         </div>
       </li>
