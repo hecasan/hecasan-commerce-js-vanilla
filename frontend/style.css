@@ -36,6 +36,10 @@ button.primary {
 .success {
   color: #5ca101;
 }
+.error {
+  color: #c00404;
+}
+
 
 .grid-container {
   display: grid;
