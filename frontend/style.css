@@ -32,6 +32,11 @@ button.primary {
 .fw {
   width: 100%;
 }
+
+.success {
+  color: #5ca101;
+}
+
 .grid-container {
   display: grid;
   grid-template-areas:
