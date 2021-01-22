@@ -9,7 +9,7 @@ const HomeScreen = {
       },
     });
     if (!response || response.statusText !== 'OK') {
-      return `<div>Erro ao pegar dados do servidor</div>`;
+      return '<div>Error in getting data</div>';
     }
     const products = response.data;
 
@@ -32,7 +32,7 @@ const HomeScreen = {
           ${product.brand}
         </div>
         <div class="product-price">
-          R$ ${product.price}
+          $${product.price}
         </div>
         </div>
       </li>

@@ -49,3 +49,54 @@ JS AMAZONA
    8. build parsedUrl and compare with routes
    9. if route exists render it, else render Error404
    10. create screens/Error404.js and render error message
+6. Create Node.JS Server
+   1. run npm init in root jsamazona folder
+   2. npm install express
+   3. create server.js
+   4. add start command as node backend/server.js
+   5. require express
+   6. move data.js from frontend to backend
+   7. create route for /api/products
+   8. return products in data.js
+   9. run npm start
+7. Load Products From Backend
+   1. edit HomeScreen.js
+   2. make render async
+   3. fetch products from '/api/products' in render()
+   4. make router() async and call await HomeScreen.render()
+   5. use cors on backend
+   6. check the result
+8. Add Webpack
+   1. cd frontend
+   2. npm install -D webpack webpack-cli webpack-dev-server
+   3. npm uninstall live-server
+   4. "start": "webpack-dev-server --mode development --watch-content-base --open"
+   5. move index.html, style.css and images to frontend folder
+   6. rename app.js to index.js
+   7. update index.html
+   8. add <script src="main.js"></script> before </body>
+   9. npm start
+   10. npm install axios
+   11. change fetch to axios in HomeScreen
+9. Install Babel For ES6 Syntax
+   1. npm install -D babel core, cli, node, preset-env
+   2. Create .babelrc and set presets to @babel/preset-env
+   3. npm install -D nodemon
+   4. set start: nodemon --watch backend --exec babel-node backend/server.js
+   5. convert require to import in server.js
+   6. npm start
+10. Enable Code Linting
+    1. npm install -D eslint
+    2. install VSCode eslint extension
+    3. create .eslintrc and set module.exports for env to node
+    4. Set VSCode setting for editor.codeActionsOnSave source.fixAll.eslint to true
+    5. check result for linting error
+    6. npm install eslint-config-airbnb-base and eslint-plugin-import
+    7. set extends to airbnb-base
+    8. set parserOptions to ecmaVersion 11 and sourceType to module
+    9. set rules for no-console to 0 to ignore linting error
+11. Install VSCode Extension
+    1. JavaScript (ES6) code snippets
+    2. ES7 React/Redux/GraphQL/React-Native snippets
+    3. Prettier - Code formatter
+    4. HTML&LESS grammar injections
