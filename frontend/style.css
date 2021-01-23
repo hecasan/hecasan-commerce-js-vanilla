@@ -75,6 +75,12 @@ footer {
   align-items: center;
   color: #ffffff;
 }
+footer a {
+  color: #ffffff;
+}
+footer p {
+  font-size: 1.2rem;
+}
 /* Products */
 .products {
   display: flex;
@@ -219,4 +225,7 @@ footer {
 .cart-list select {
   font-size: 1.3rem;
   padding: 0.5rem;
+}
+.goToShop {
+  font-weight:bold;
 }

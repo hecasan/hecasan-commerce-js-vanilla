@@ -25,7 +25,7 @@ const HomeScreen = {
             <img src="${product.image}" alt="${product.name}" />
           </a>
         <div class="product-name">
-          <a href="/#/product/1">
+        <a href="/#/product/${product._id}">
             ${product.name}
           </a>
           </div>
@@ -41,6 +41,8 @@ const HomeScreen = {
           </div>
         <div class="product-price">
           R$ ${product.price},00
+        </div>
+
         </div>
         </div>
       </li>

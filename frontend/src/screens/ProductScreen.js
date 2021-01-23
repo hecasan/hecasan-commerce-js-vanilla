@@ -61,7 +61,7 @@ const ProductScreen = {
       }
               </li>
               <li>
-                  <button id="add-button" class="fw primary">Add ao Carrinho </div>
+                  <button id="add-button" class="fw primary">Comprar </div>
             </ul>
         </div>
       </div>
