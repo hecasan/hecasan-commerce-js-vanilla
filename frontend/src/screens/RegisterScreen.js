@@ -2,7 +2,7 @@ import { register } from '../../api';
 import { setUserInfo, getUserInfo } from '../localStorage';
 import { hideLoading, showLoading, showMessage } from '../utils';
 
-const registerScreen = {
+const RegisterScreen = {
   after_render: () => {
     document
       .getElementById('register-form')
@@ -66,4 +66,4 @@ const registerScreen = {
     `;
   },
 };
-export default registerScreen;
+export default RegisterScreen;

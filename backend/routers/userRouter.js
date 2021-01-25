@@ -2,7 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
 import User from '../models/userModel';
-import { generateToken } from '../utils';
+import { generateToken, isAuth } from '../utils';
 
 const userRouter = express.Router();
 
@@ -65,6 +65,32 @@ userRouter.post(
         email: createdUser.email,
         isAdmin: createdUser.isAdmin,
         token: generateToken(createdUser),
+      });
+    }
+  })
+);
+userRouter.put(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      res.status(404).send({
+        message: 'Usuário inexistente!',
+      });
+    } else {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.password = req.body.password || user.password;
+
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+        token: generateToken(updatedUser),
       });
     }
   })
