@@ -68,7 +68,7 @@ button.primary {
   font-size: 1.3rem;
 }
 
-input#email, input#password {
+input#email, input#password, input#name, input#repassword {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #777070;
