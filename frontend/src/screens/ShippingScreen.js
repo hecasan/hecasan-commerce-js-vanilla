@@ -30,6 +30,7 @@ const ShippingScreen = {
         <ul class="form-items">
           <li>
             <h1>Entrega</h1>
+            <p>Informe o endereço de entrega</p>
           </li>
           <li>
             <label for="address">Endereço</label>

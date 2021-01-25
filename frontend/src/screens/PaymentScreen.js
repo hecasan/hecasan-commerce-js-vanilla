@@ -26,6 +26,7 @@ const PaymentScreen = {
         <ul class="form-items">
           <li>
             <h1>Pagamento</h1>
+            <p>Selecione a forma de pagamento</p>
           </li>
           <li>
             <div>
