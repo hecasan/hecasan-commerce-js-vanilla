@@ -1,5 +1,6 @@
 import { signin } from '../../api';
 import { setUserInfo, getUserInfo } from '../localStorage';
+import { hideLoading, showLoading, showMessage } from '../utils';
 
 const SigninScreen = {
   after_render: () => {
@@ -7,12 +8,14 @@ const SigninScreen = {
       .getElementById('signin-form')
       .addEventListener('submit', async (e) => {
         e.preventDefault();
+        showLoading();
         const data = await signin({
           email: document.getElementById('email').value,
           password: document.getElementById('password').value,
         });
+        hideLoading();
         if (data.error) {
-          alert(data.error);
+          showMessage(data.error);
         } else {
           setUserInfo(data);
           document.location.hash = '/';
@@ -28,23 +31,23 @@ const SigninScreen = {
       <form id="signin-form">
         <ul class="form-items">
           <li>
-            <h1>Sign-In</h1>
+            <h1>Fazer Login <i class="fa fa-user"></i></h1>
           </li>
           <li>
-            <label for="email">Email</label>
+            <label for="email"><i class="fa fa-envelope"></i> Informe seu e-mail </label>
             <input type="email" name="email" id="email" />
           </li>
           <li>
-            <label for="password">Password</label>
+            <label for="password"><i class="fa fa-lock"></i> Digite sua senha</label>
             <input type="password" name="password" id="password" />
           </li>
           <li>
-            <button type="submit" class="primary">Signin</button>
+            <button type="submit" class="primary">Entrar</button>
           </li>
           <li>
             <div>
-              New User?
-              <a href="/#/register">Create your account </a>
+              <p class="novoPorAqui">Novo por aqui?</p>
+              <p class="crieUmaConta"><a href="/#/register">Crie uma conta para efetuar compras </a></p>
             </div>
           </li>
         </ul>

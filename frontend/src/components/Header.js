@@ -9,7 +9,7 @@ const Header = {
   </div>
   <div>
   ${name
-        ? `<a href="/#/profile">${name}</a> | `
+        ? `<a href="/#/profile"> Olá, ${name}</a> | `
         : `<a href="/#/signin">Entrar</a> | `
       }
     
