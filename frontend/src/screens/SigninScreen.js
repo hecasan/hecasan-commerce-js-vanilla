@@ -6,7 +6,7 @@ const SigninScreen = {
       <form id="signin-form">
         <ul class="form-items">
           <li>
-            <h1>Sign-In</h1>
+            <h1>Fazer Login</h1>
           </li>
           <li>
             <label for="email">E-mail</label>
