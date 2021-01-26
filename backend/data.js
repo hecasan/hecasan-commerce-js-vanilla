@@ -1,7 +1,7 @@
 module.exports = {
   products: [
     {
-      _id: '1',
+      _id: '111111111111111111111111',
       name: 'Hiskywin Full Zip Running Shirts Thermal Workout',
       category: 'Shirts',
       image: '/images/product-1.jpg',
@@ -9,12 +9,12 @@ module.exports = {
       brand: 'Hiskywin',
       rating: 4.5,
       numReviews: 10,
-      countInStock: 0,
+      countInStock: 5,
       shortDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
     },
     {
-      _id: '2',
+      _id: '222222222222222222222222',
       name: 'Nike Full-Zip Hoodie Mens Workout Sweatshirt',
       category: 'Shirts',
       image: '/images/product-2.jpg',
