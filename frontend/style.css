@@ -302,6 +302,7 @@ footer p {
   font-size: 2.5rem;
 }
 
+
 /* Checkout */
 .checkout-steps {
   display: flex;
@@ -347,6 +348,9 @@ footer p {
 }
 .order-info > div:first-child {
   margin-top: 0;
+}
+.order-info > div > div {
+  padding: 1rem;
 }
 .order-action {
   flex: 1 1 20rem;
