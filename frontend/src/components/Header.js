@@ -2,7 +2,7 @@ import { getUserInfo } from '../localStorage';
 
 const Header = {
   render: () => {
-    const { name } = getUserInfo();
+    const { name, isAdmin } = getUserInfo();
     return ` 
   <div class="brand">
   <a href="/#/">hecasan +</a>
@@ -14,6 +14,7 @@ const Header = {
       }
     
     <a href="/#/cart">Meu Carrinho</a>
+    ${isAdmin ? ` | <a href="/#/dashboard">Painel de controle</a> ` : ''}
   </div>`;
   },
   after_render: () => { },
