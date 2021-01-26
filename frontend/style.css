@@ -437,3 +437,12 @@ td {
   flex: 4 1 80rem;
   padding: 1rem;
 }
+
+.product-list button {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border: 0;
+}
+.tr-action {
+  width: 10rem;
+}

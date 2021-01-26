@@ -1,21 +1,12 @@
-import axios from 'axios';
-import RatingComponent from "../components/Rating";
-import { hideLoading, showLoading } from "../utils";
+import { getProducts } from '../../api';
+import Rating from '../components/Rating';
 
 const HomeScreen = {
   render: async () => {
-    showLoading();
-    const response = await axios({
-      url: 'http://localhost:5000/api/products',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    hideLoading()
-    if (!response || response.statusText !== 'OK') {
-      return '<div>Error in getting data</div>';
+    const products = await getProducts();
+    if (products.error) {
+      return `<div class="error">${products.error}</div>`;
     }
-    const products = response.data;
 
     return `
     <ul class="products">
@@ -28,24 +19,21 @@ const HomeScreen = {
             <img src="${product.image}" alt="${product.name}" />
           </a>
         <div class="product-name">
-        <a href="/#/product/${product._id}">
+          <a href="/#/product/1">
             ${product.name}
           </a>
-          </div>
-          <div class="product-brand">
-            ${product.brand}
-          </div>
-          <div className="product-rating">
-            ${RatingComponent.render(
-            {
-              value: product.rating,
-              text: `${product.numReviews} visualizações`,
-            })}
-          </div>
-        <div class="product-price">
-          R$ ${product.price},00
         </div>
-
+        <div class="product-rating">
+          ${Rating.render({
+            value: product.rating,
+            text: `${product.numReviews} reviews`,
+          })}
+        </div>
+        <div class="product-brand">
+          ${product.brand}
+        </div>
+        <div class="product-price">
+          $${product.price}
         </div>
         </div>
       </li>
