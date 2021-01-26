@@ -1,6 +1,68 @@
-import { getOrder } from '../../api';
-import { hideLoading, parseRequestUrl } from "../utils";
+import { getOrder, getPaypalClientId, payOrder } from '../../api';
+import { hideLoading, parseRequestUrl, rerender, showLoading, showMessage } from "../utils";
 
+const addPaypalSdk = async (totalPrice) => {
+  const clientId = await getPaypalClientId();
+  showLoading();
+  if (!window.paypal) {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://www.paypalobjects.com/api/checkout.js';
+    script.async = true;
+    script.onload = () => handlePayment(clientId, totalPrice);
+    document.body.appendChild(script);
+  } else {
+    handlePayment(clientId, totalPrice);
+  }
+};
+const handlePayment = (clientId, totalPrice) => {
+  window.paypal.Button.render(
+    {
+      env: 'sandbox',
+      client: {
+        sandbox: clientId,
+        production: '',
+      },
+      locale: 'pt_BR',
+      style: {
+        size: 'responsive',
+        color: 'gold',
+        shape: 'pill',
+      },
+
+      commit: true,
+      payment(data, actions) {
+        return actions.payment.create({
+          transactions: [
+            {
+              amount: {
+                total: totalPrice,
+                currency: 'BRL',
+              },
+            },
+          ],
+        });
+      },
+      onAuthorize(data, actions) {
+        return actions.payment.execute().then(async () => {
+          showLoading();
+          await payOrder(parseRequestUrl().id, {
+            orderID: data.orderID,
+            payerID: data.payerID,
+            paymentID: data.paymentID,
+          });
+          hideLoading();
+          showMessage('Pagamento efetuado com sucesso.', () => {
+            rerender(OrderScreen);
+          });
+        });
+      },
+    },
+    '#paypal-button'
+  ).then(() => {
+    hideLoading();
+  });
+};
 const OrderScreen = {
   after_render: async () => {
     hideLoading();
@@ -21,13 +83,16 @@ const OrderScreen = {
       isPaid,
       paidAt,
     } = await getOrder(request.id);
+    if (!isPaid) {
+      addPaypalSdk(totalPrice);
+    }
     return `
     <div>
     <h1>Pedido ${_id}</h1>
       <div class="order">
         <div class="order-info">
           <div>
-            <h2>Shipping</h2>
+            <h2>Entrega</h2>
             <div>
             ${shipping.address}, ${shipping.city}, ${shipping.postalCode}, 
             ${shipping.country}
@@ -67,7 +132,7 @@ const OrderScreen = {
                     </div>
                     <div> Qty: ${item.qty} </div>
                   </div>
-                  <div class="cart-price"> $${item.price}</div>
+                  <div class="cart-price"> R$ ${item.price}</div>
                 </li>
                 `
         )
@@ -78,13 +143,13 @@ const OrderScreen = {
         <div class="order-action">
            <ul>
                 <li>
-                  <h2>Order Summary</h2>
+                  <h2>Resumo do Pedido</h2>
                  </li>
-                 <li><div>Itens</div><div>$${itemsPrice}</div></li>
-                 <li><div>Entrega</div><div>$${shippingPrice}</div></li>
-                 <li><div>Taxa</div><div>$${taxPrice}</div></li>
-                 <li class="total"><div>Total do Pedido</div><div>$${totalPrice}</div></li> 
-                 <li>
+                 <li><div>Itens</div><div>R$ ${itemsPrice}</div></li>
+                 <li><div>Entrega</div><div>R$ ${shippingPrice}</div></li>
+                 <li><div>Taxa</div><div>R$ ${taxPrice}</div></li>
+                 <li class="total"><div>Total do Pedido</div><div>R$ ${totalPrice}</div></li> 
+                 <li><div class="fw text-finalizar" id="paypal-button"></div></li>
                
         </div>
       </div>
