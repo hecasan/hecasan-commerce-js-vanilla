@@ -1,5 +1,5 @@
 
-import { update } from '../../api';
+import { getMyOrders, update } from '../../api';
 import { setUserInfo, getUserInfo, clearUser } from '../localStorage';
 import { hideLoading, showLoading, showMessage } from '../utils';
 
@@ -28,13 +28,16 @@ const ProfileScreen = {
         }
       });
   },
-  render: () => {
+  render: async () => {
     const { name, email } = getUserInfo();
     if (!name) {
       document.location.hash = '/';
     }
+    const orders = await getMyOrders();
     return `
-    <div class="form-container">
+    <div class="content profile">
+      <div class="profile-info">
+      <div class="form-container">
       <form id="profile-form">
         <ul class="form-items">
           <li>
@@ -62,6 +65,43 @@ const ProfileScreen = {
         </ul>
       </form>
     </div>
+    </div>
+      <div class="profile-orders">
+      <h2>Histórico de Pedidos</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>PEDIDO ID</th>
+              <th>DATA DO PEDIDO</th>
+              <th>TOTAL</th>
+              <th>PAGO?</th>
+              <th>ENTREGUE?</th>
+              <th>AÇÕES</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${orders.length === 0
+        ? `<tr><td colspan="6">Nenhum pedido encontrado.</tr>`
+        : orders
+          .map(
+            (order) => `
+          <tr>
+            <td>${order._id}</td>
+            <td>${order.createdAt}</td>
+            <td>${order.totalPrice}</td>
+            <td>${order.paidAt || 'Não'}</td>
+            <td>${order.deliveryAt || 'Não'}</td>
+            <td><a href="/#/order/${order._id}">DETALHE</a> </td>
+          </tr>
+          `
+          )
+          .join('\n')
+      }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
     `;
   },
 };
