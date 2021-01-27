@@ -2,6 +2,7 @@ import { deleteOrder, getOrders } from '../../api';
 import DashboardMenu from '../components/DashboardMenu';
 import { hideLoading, rerender, showLoading, showMessage } from '../utils';
 
+
 const OrderListScreen = {
   after_render: () => {
     const deleteButtons = document.getElementsByClassName('delete-button');
@@ -19,6 +20,14 @@ const OrderListScreen = {
         }
       });
     });
+
+    const editButtons = document.getElementsByClassName('edit-button');
+    Array.from(editButtons).forEach((editButton) => {
+      editButton.addEventListener('click', async () => {
+        document.location.hash = `/order/${editButton.id}`;
+      });
+    });
+
   },
   render: async () => {
     const orders = await getOrders();
