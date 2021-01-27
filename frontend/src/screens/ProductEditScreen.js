@@ -1,5 +1,5 @@
-import { getProduct, updateProduct } from '../../api';
-import { hideLoading, parseRequestUrl, showMessage, showLoading } from '../utils';
+import { getProduct, updateProduct, uploadProductImage, } from '../../api';
+import { hideLoading, parseRequestUrl, showLoading, showMessage } from '../utils';
 
 
 const ProductEditScreen = {
@@ -27,6 +27,24 @@ const ProductEditScreen = {
           document.location.hash = '/productlist';
         }
       });
+
+    document
+      .getElementById('image-file')
+      .addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
+        showLoading();
+        const data = await uploadProductImage(formData);
+        hideLoading();
+        if (data.error) {
+          showMessage(data.error);
+        } else {
+          showMessage('Imagem atualizada com sucesso!');
+          document.getElementById('image').value = data.image;
+        }
+      });
+
   },
   render: async () => {
     const request = parseRequestUrl();
@@ -53,9 +71,10 @@ const ProductEditScreen = {
       }" id="price" />
             </li>
             <li>
-              <label for="image">Imagem</label>
+              <label for="image">Imagem (680 x 830)</label>
               <input type="text" name="image" value="${product.image
       }" id="image" />
+      <input type="file" name="image-file" id="image-file" />
             </li>
             <li>
               <label for="brand">Marca</label>

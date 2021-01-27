@@ -35,3 +35,4 @@ yarn-lock.json
 frontend/package-lock.json
 frontend/yarn-lock.json
 conexao.js
+frontend/main.js
