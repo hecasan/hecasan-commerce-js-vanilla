@@ -14,6 +14,7 @@ productRouter.get(
 productRouter.get(
   '/:id',
   expressAysncHandler(async (req, res) => {
+
     const product = await Product.findById(req.params.id);
     res.send(product);
   })
@@ -60,10 +61,25 @@ productRouter.put(
       if (updatedProduct) {
         res.send({ message: 'Produto Atualizado', product: updatedProduct });
       } else {
-        res.status(500).send({ message: 'Error in updaing product' });
+        res.status(500).send({ message: 'Erro ao atualizar o produto' });
       }
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Produto não encontrado' });
+    }
+  })
+);
+
+productRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAysncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      const deletedProduct = await product.remove();
+      res.send({ message: 'Produto Excluído', product: deletedProduct });
+    } else {
+      res.status(404).send({ message: 'Produto não encontrado' });
     }
   })
 );
